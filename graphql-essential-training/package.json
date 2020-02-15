@@ -1,0 +1,18 @@
+{
+  "name": "graphql-essential-training",
+  "version": "1.0.0",
+  "description": "https://www.linkedin.com/learning/graphql-essential-training",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js -e js,json"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
