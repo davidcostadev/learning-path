@@ -5,7 +5,8 @@ const friends = [
     id: 123,
     firstName: 'David',
     lastName: 'Costa',
-    gender: 'Male',
+    gender: 'male',
+    age: 27,
     languange: 'Portuguese',
     email: 'davidcostadev@gmail.com'
   }

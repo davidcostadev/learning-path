@@ -1,11 +1,18 @@
 const { buildSchema } = require('graphql');
 
 const schema = buildSchema(`
+  enum Gender {
+    male
+    female
+    other
+  }
+
   type Friend {
     id: ID
     firstName: String
     lastName: String
-    gender: String
+    gender: Gender
+    age: Int
     languange: String
     email: String
   }
