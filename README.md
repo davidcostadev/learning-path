@@ -6,6 +6,7 @@ My Path to Because a Better Developer
 
 | Name                                                                                                       | Institute         | Date                                                                                | Status      |
 | ---------------------------------------------------------------------------------------------------------- | ----------------- | ----------------------------------------------------------------------------------- | ----------- |
+| [GraphQL Essential Training](https://www.linkedin.com/learning/graphql-essential-training)                 | Linkedin Learning | -                                                                                   | In Progress |
 | [CS50's Introduction to Computer Science](https://cs50.harvard.edu/x/2020/)                                | Harvard           | -                                                                                   | In Progress |
 | [JavaScript Algorithms and Data Structures Certification (300 hours)](https://www.freecodecamp.org/learn/) | freeCodeCamp      | -                                                                                   | In Progress |
 | [Node.js Essential Training](https://www.linkedin.com/learning/node-js-essential-training-2)               | Linkedin Learning | [Feb 2020](certifications/CertificateOfCompletion_Node-Js-Essential-Training-2.pdf) | Completed   |
