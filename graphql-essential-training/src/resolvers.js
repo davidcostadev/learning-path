@@ -7,8 +7,14 @@ const friends = [
     lastName: 'Costa',
     gender: 'male',
     age: 27,
-    languange: 'Portuguese',
-    email: 'davidcostadev@gmail.com'
+    language: 'Portuguese',
+    email: 'davidcostadev@gmail.com',
+    contacts: [
+      {
+        firstName: 'Juliana',
+        lastName: 'Costa'
+      }
+    ]
   }
 ];
 
