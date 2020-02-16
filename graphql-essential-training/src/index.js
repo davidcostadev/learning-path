@@ -10,12 +10,12 @@ app.get('/', (req, res) => {
 
 const root = {
   friend: () => ({
-    id: 'asd',
-    firstName: 'asdas',
-    lastName: 'asdas',
-    gender: 'asdas',
-    language: 'asdas',
-    email: 'asdas'
+    id: 123,
+    firstName: 'David',
+    lastName: 'Costa',
+    gender: 'Male',
+    languange: 'Portuguese',
+    emails: [{ email: 'davidcostadev@gmail.com' }]
   })
 };
 

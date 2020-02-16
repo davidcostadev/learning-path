@@ -6,7 +6,11 @@ const schema = buildSchema(`
     firstName: String
     lastName: String
     gender: String
-    language: String
+    languange: String
+    emails: [Email]!
+  }
+
+  type Email {
     email: String
   }
   
