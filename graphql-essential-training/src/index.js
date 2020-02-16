@@ -9,7 +9,14 @@ app.get('/', (req, res) => {
 });
 
 const root = {
-  hello: () => 'asdsdas'
+  friend: () => ({
+    id: 'asd',
+    firstName: 'asdas',
+    lastName: 'asdas',
+    gender: 'asdas',
+    language: 'asdas',
+    email: 'asdas'
+  })
 };
 
 app.use(
