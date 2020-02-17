@@ -1,33 +1,44 @@
 const uuid = require('uuid');
-
-const friends = [
-  {
-    id: 123,
-    firstName: 'David',
-    lastName: 'Costa',
-    gender: 'male',
-    age: 27,
-    language: 'Portuguese',
-    email: 'davidcostadev@gmail.com',
-    contacts: [
-      {
-        firstName: 'Juliana',
-        lastName: 'Costa'
-      }
-    ]
-  }
-];
+const { Friends, Aliens } = require('./dbConnection');
 
 const resolvers = {
-  friends,
-  getFriend: ({ id }) => friends.find(friend => friend.id === id),
-  createFriend: ({ input }) => {
-    const data = {
-      id: uuid(),
-      ...input
-    };
-    friends.push(data);
-    return data;
+  Query: {
+    friends: root => {
+      console.log('1');
+      return new Promise(async (resolve, reject) => {
+        console.log('2');
+        resolve(await Friends.find());
+        // .exec((err, data) => {
+        //   console.log('3');
+        //   if (err) {
+        //     console.error(err);
+        //     reject(err);
+        //     return;
+        //   }
+        //   resolve(data);
+        // });
+      });
+    },
+    // getFriend: ({ id }) => friends.find(friend => friend.id === id),
+    aliens: () => Aliens.findAll()
+  },
+  Mutation: {
+    createFriend: async (root, { input }) => {
+      const newFriend = new Friends({
+        firstName: input.firstName,
+        lastName: input.lastName,
+        gender: input.gender,
+        age: input.age,
+        language: input.language,
+        email: input.email,
+        contacts: input.contacts
+      });
+
+      newFriend.id = newFriend._id;
+
+      const friend = await newFriend.save();
+      return friend;
+    }
   }
 };
 

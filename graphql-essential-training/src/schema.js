@@ -1,6 +1,7 @@
-const { buildSchema } = require('graphql');
+const { makeExecutableSchema } = require('graphql-tools');
+const resolvers = require('./resolvers');
 
-const schema = buildSchema(`
+const typeDefs = `
   enum Gender {
     male
     female
@@ -22,11 +23,17 @@ const schema = buildSchema(`
     contacts: [Contact]
   }
 
-  type Query {
-    friends: [Friend]
-    getFriend(id: ID): Friend
+  type Aliens {
+    firstName: String
+    lastName: String
+    planet: String
   }
 
+  type Query {
+    friends: [Friend]
+    aliens: [Aliens]
+    getFriend(id: ID): Friend
+  }
 
   input ContactInput {
     firstName: String
@@ -38,6 +45,7 @@ const schema = buildSchema(`
     firstName: String!
     lastName: String!
     gender: String
+    age: Int
     language: String
     email: String!
     contacts: [ContactInput]
@@ -46,6 +54,8 @@ const schema = buildSchema(`
   type Mutation {
     createFriend(input: FriendInput): Friend
   }
-`);
+`;
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 module.exports = schema;
