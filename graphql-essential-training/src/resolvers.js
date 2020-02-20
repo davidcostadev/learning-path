@@ -3,23 +3,8 @@ const { Friends, Aliens } = require('./dbConnection');
 
 const resolvers = {
   Query: {
-    friends: root => {
-      console.log('1');
-      return new Promise(async (resolve, reject) => {
-        console.log('2');
-        resolve(await Friends.find());
-        // .exec((err, data) => {
-        //   console.log('3');
-        //   if (err) {
-        //     console.error(err);
-        //     reject(err);
-        //     return;
-        //   }
-        //   resolve(data);
-        // });
-      });
-    },
-    // getFriend: ({ id }) => friends.find(friend => friend.id === id),
+    friends: root => Friends.find(),
+    getFriend: (root, { id }) => Friends.findOne({ _id: id }),
     aliens: () => Aliens.findAll()
   },
   Mutation: {
@@ -38,6 +23,13 @@ const resolvers = {
 
       const friend = await newFriend.save();
       return friend;
+    },
+    updateFriend: async (root, { input }) => (
+      Friends.findByIdAndUpdate(input.id, input, { new:true })
+    ),
+    removeFriend: async (root, { id }) => {
+      await Friends.findByIdAndRemove(id);
+      return 'ok'
     }
   }
 };
