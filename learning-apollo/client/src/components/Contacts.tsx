@@ -2,7 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
-interface contacts {
+interface contact {
   id: string;
   firstName: string;
   lastName: String;
@@ -14,17 +14,19 @@ type ContactsProps = {
     error: {
       message: string;
     };
-    contacts: [contacts];
+    contacts: [contact];
   };
 };
 
-const Contacts = ({ data: { loading, error, contacts } }: ContactsProps) => {
+const Contacts = (props: any) => {
+  console.log(props);
+  const { data: { loading, error, contacts } } = props
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>;
+  if (error) return <p>Error {error.message}</p>;
 
   return (
     <ul>
-      {contacts.map(({ id, firstName, lastName }) => (
+      {contacts.map(({ id, firstName, lastName }:contact) => (
         <li key={id}>
           {firstName} {lastName}
         </li>
@@ -34,10 +36,10 @@ const Contacts = ({ data: { loading, error, contacts } }: ContactsProps) => {
 };
 
 export const contactsListQuery = gql`
-  query ContactsQuery {
+  query {
     contacts {
       id
-      fistName
+      firstName
       lastName
     }
   }
