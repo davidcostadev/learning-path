@@ -2,6 +2,7 @@ import React from 'react';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import './App.css';
+import AddContact from './components/AddContact';
 import Contacts from './components/Contacts';
 
 const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
@@ -14,6 +15,7 @@ function App() {
           <h1>CRM</h1>
         </header>
         <div>
+          <AddContact />
           <Contacts />
         </div>
       </div>
