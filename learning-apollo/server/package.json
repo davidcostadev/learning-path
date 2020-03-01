@@ -20,6 +20,9 @@
     "apollo-server-express": "^2.10.1",
     "express": "^4.17.1",
     "graphql": "^14.6.0",
-    "mongoose": "^5.9.2"
+    "graphql-subscriptions": "^1.1.0",
+    "http": "0.0.0",
+    "mongoose": "^5.9.2",
+    "subscriptions-transport-ws": "^0.9.16"
   }
 }

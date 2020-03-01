@@ -1,4 +1,9 @@
 export const typeDefs = `
+  type Note {
+    id: ID!
+    details: String
+  }
+
   type Contact {
     id: ID!
     firstName: String
@@ -8,5 +13,9 @@ export const typeDefs = `
 
   type Query {
     contacts: [Contact]
+  }
+
+  type Subscription {
+    noteAdded(contactId: ID!): Note
   }
 `;
