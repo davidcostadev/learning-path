@@ -1,22 +1,17 @@
 import { gql } from 'apollo-server-express';
 
 export const typeDefs = gql`
-  type Note {
-    id: ID!
-    details: String
-  }
-
   type Contact {
     id: ID!
     firstName: String
     lastName: String
     email: String
-    notes: [Note]!
   }
 
-  input NoteInput {
-    contactId: ID!
-    details: String
+  input ContactEdit {
+    firstName: String!
+    lastName: String!
+    email: String!
   }
 
   type Query {
@@ -26,10 +21,13 @@ export const typeDefs = gql`
 
   type Mutation {
     addContact(firstName: String!, lastName: String!, email: String!): Contact
-    addNote(note: NoteInput!): Note
+    editContact(id: ID!, data: ContactEdit!): Contact
+    deleteContact(id: ID!): String
   }
 
   type Subscription {
-    noteAdded(contactId: ID!): Note
+    contactAdded: Contact
+    contactDeleted: Contact
+    contactUpdated: Contact
   }
 `;

@@ -2,24 +2,24 @@ import { PubSub, withFilter } from 'graphql-subscriptions';
 
 const pubsub = new PubSub();
 
-interface Note {
-  id: string;
-  details: string;
-}
-
-interface NoteInput {
-  note: {
-    contactId: string;
-    details: string;
-  };
-}
-
 interface addContactType {
   id?: string;
   firstName: string;
   lastName: string;
   email: string;
-  notes: Note[];
+}
+
+interface Entity {
+  id: string;
+}
+
+interface editContact {
+  id: string;
+  data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
 }
 
 const contacts: [addContactType] = [
@@ -28,7 +28,6 @@ const contacts: [addContactType] = [
     firstName: 'David',
     lastName: ' Costa',
     email: 'davidcostadev@gmail.com',
-    notes: [],
   },
 ];
 
@@ -36,6 +35,9 @@ export const resolvers = {
   Query: {
     contacts: () => {
       return contacts;
+    },
+    getContact: (root: any, { id }: Entity) => {
+      return contacts.find(contact => contact.id === id);
     },
   },
   Mutation: {
@@ -48,44 +50,50 @@ export const resolvers = {
         firstName: args.firstName,
         lastName: args.lastName,
         email: args.email,
-        notes: [],
       };
 
       contacts.push(contact);
+      pubsub.publish('CONTACT_ADDED', { contactAdded: contact });
       return contact;
     },
-    addNote: (root: any, { note }: NoteInput) => {
-      const contact = contacts.find(contact => contact.id === note.contactId);
-
-      if (!contact) {
-        throw new Error('Contact does not found!');
-      }
-
-      const id = require('crypto')
-        .randomBytes(5)
-        .toString('hex');
-      const newNote = {
-        id: String(id),
-        details: note.details,
+    editContact: (root: any, { id, data }: editContact) => {
+      const contactIndex = contacts.findIndex(contact => contact.id === id);
+      if (contactIndex === -1) return null;
+      const newContact = {
+        ...contacts[contactIndex],
+        ...data,
       };
-      contact.notes.push(newNote);
+      contacts.splice(contactIndex, 1, newContact);
+      pubsub.publish('CONTACT_UPDATED', { contactUpdated: newContact });
+      return newContact;
+    },
+    deleteContact: (root: any, { id }: Entity) => {
+      const contactIndex = contacts.findIndex(contact => contact.id === id);
 
-      pubsub.publish('noteAdded', {
-        noteAdded: newNote,
-        contactId: contact.id,
-      });
-      return newNote;
+      if (contactIndex === -1) return null;
+
+      const contactDeleted = contacts[contactIndex];
+      contacts.splice(contactIndex, 1);
+
+      pubsub.publish('CONTACT_DELETED', { contactDeleted });
+      return 'OK';
     },
   },
   Subscription: {
-    noteAdded: {
-      subscribe: withFilter(
-        () => pubsub.asyncIterator('noteAdded'),
-        (payload, variables) => {
-          console.log('subscript', payload);
-          return payload.contactId === variables.contactId;
-        },
-      ),
+    contactAdded: {
+      subscribe: () => {
+        return pubsub.asyncIterator('CONTACT_ADDED');
+      },
+    },
+    contactDeleted: {
+      subscribe: () => {
+        return pubsub.asyncIterator('CONTACT_DELETED');
+      },
+    },
+    contactUpdated: {
+      subscribe: () => {
+        return pubsub.asyncIterator('CONTACT_UPDATED');
+      },
     },
   },
 };
