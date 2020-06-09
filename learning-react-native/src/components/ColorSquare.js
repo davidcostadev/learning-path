@@ -5,7 +5,7 @@ const ColorSquare = ({ color, value, onIncrease, onDecrease }) => {
   return (
     <View>
       <Text>
-        {color}({value}) asd
+        {color}({value})
       </Text>
       <View>
         <Button title={`Increase ${color}`} onPress={onIncrease} />

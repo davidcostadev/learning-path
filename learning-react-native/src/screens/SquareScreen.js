@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { Text, View, StyleSheet, Button, FlatList } from 'react-native';
 import ColorSquare from '../components/ColorSquare';
 
 const COLOR_STEP = 15;
 
-const SquareScreen = () => {
-  const [red, setRed] = useState(0);
-  const [blue, setBlue] = useState(0);
-  const [green, setGreen] = useState(0);
+const reducer = (state, { type, payload }) => {
+  if (state[type] + payload < 0 || state[type] + payload > 255) return state;
+  switch (type) {
+    case 'red':
+      return {
+        ...state,
+        [type]: state[type] + payload,
+      };
+    case 'blue':
+      return {
+        ...state,
+        [type]: state[type] + payload,
+      };
+    case 'green':
+      return {
+        ...state,
+        [type]: state[type] + payload,
+      };
+    default:
+      state;
+  }
+};
 
-  const setColor = (color, value, step) => {
-    if (value + step >= 0 && value + step <= 255) {
-      if (color === 'red') {
-        setRed(value + step);
-      } else if (color === 'blue') {
-        setBlue(value + step);
-      } else {
-        setGreen(value + step);
-      }
-    }
-  };
+const SquareScreen = () => {
+  const [state, dispatch] = useReducer(reducer, {
+    red: 0,
+    blue: 0,
+    green: 0,
+  });
 
   return (
     <View>
@@ -27,25 +40,25 @@ const SquareScreen = () => {
       <View style={styles.menu}>
         <ColorSquare
           color="Red"
-          value={red}
-          onIncrease={() => setColor('red', red, COLOR_STEP)}
-          onDecrease={() => setColor('red', red, -1 * COLOR_STEP)}
+          value={state.red}
+          onIncrease={() => dispatch({ type: 'red', payload: COLOR_STEP })}
+          onDecrease={() => dispatch({ type: 'red', payload: -1 * COLOR_STEP })}
         />
       </View>
       <View style={styles.menu}>
         <ColorSquare
           color="Blue"
-          value={blue}
-          onIncrease={() => setColor('blue', blue, COLOR_STEP)}
-          onDecrease={() => setColor('blue', blue, -1 * COLOR_STEP)}
+          value={state.blue}
+          onIncrease={() => dispatch({ type: 'blue', payload: COLOR_STEP })}
+          onDecrease={() => dispatch({ type: 'blue', payload: -1 * COLOR_STEP })}
         />
       </View>
       <View style={styles.menu}>
         <ColorSquare
           color="Green"
-          value={green}
-          onIncrease={() => setColor('green', green, COLOR_STEP)}
-          onDecrease={() => setColor('green', green, -1 * COLOR_STEP)}
+          value={state.green}
+          onIncrease={() => dispatch({ type: 'green', payload: COLOR_STEP })}
+          onDecrease={() => dispatch({ type: 'green', payload: -1 * COLOR_STEP })}
         />
       </View>
       <View style={styles.menu}>
@@ -53,7 +66,7 @@ const SquareScreen = () => {
           style={{
             width: 50,
             height: 50,
-            backgroundColor: `rgb(${red}, ${blue}, ${green})`,
+            backgroundColor: `rgb(${state.red}, ${state.green}, ${state.blue})`,
           }}
         />
       </View>
