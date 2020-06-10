@@ -8,6 +8,7 @@ import CountScreen from './src/screens/CountScreen';
 import ColorsScreen from './src/screens/ColorsScreen';
 import SquareScreen from './src/screens/SquareScreen';
 import TextHandleScreen from './src/screens/TextHandleScreen';
+import RestaurantApp from './src/screens/restaurant/TimelineScreen';
 
 const navigator = createStackNavigator(
   {
@@ -19,11 +20,13 @@ const navigator = createStackNavigator(
     Colors: ColorsScreen,
     Square: SquareScreen,
     TextHandle: TextHandleScreen,
+
+    RestaurantApp: RestaurantApp,
   },
   {
     initialRouteName: 'Home',
     defaultNavigationOptions: {
-      title: 'App',
+      title: "David's App",
     },
   }
 );
