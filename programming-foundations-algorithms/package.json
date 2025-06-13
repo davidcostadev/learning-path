@@ -1,0 +1,30 @@
+{
+  "name": "boilerplate-typescript",
+  "version": "1.0.0",
+  "description": "TypeScript Node.js boilerplate with strict configuration",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "env-cmd -f ./config/.env.development tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "env-cmd -f ./config/.env.production node dist/index.js",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "lint:fix": "biome check --apply .",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "typescript",
+    "nodejs",
+    "boilerplate"
+  ],
+  "author": "David Costa <davidcosta@gmail.com>",
+  "license": "MIT",
+  "packageManager": "pnpm@10.11.0",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^24.0.1",
+    "env-cmd": "^10.1.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
