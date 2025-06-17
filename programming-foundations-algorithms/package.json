@@ -10,7 +10,9 @@
     "lint": "biome check .",
     "format": "biome format --write .",
     "lint:fix": "biome check --apply .",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest --coverage"
   },
   "keywords": [
     "typescript",
@@ -23,8 +25,12 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/node": "^24.0.1",
+    "@vitest/coverage-istanbul": "3.2.3",
+    "@vitest/coverage-v8": "3.2.3",
+    "@vitest/ui": "^3.2.3",
     "env-cmd": "^10.1.0",
     "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.3"
   }
 }

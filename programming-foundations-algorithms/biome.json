@@ -9,7 +9,7 @@
       "recommended": true,
       "suspicious": {
         "noExplicitAny": "error",
-        "noConsoleLog": "warn"
+        "noConsoleLog": "off"
       },
       "style": {
         "noNonNullAssertion": "error",
