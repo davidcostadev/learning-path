@@ -6,9 +6,7 @@
  * - A next property to reference the next node in the list
  */
 
-// Your implementation here
 export class Node<T> {
-  // Implement your Node class here
   value: T;
   next: Node<T> | null;
 

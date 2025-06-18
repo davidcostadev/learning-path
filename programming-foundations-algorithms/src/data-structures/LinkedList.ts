@@ -36,8 +36,6 @@ export class LinkedList<T> {
       this.tail = newNode;
     } else {
       this.tail.next = newNode;
-      // const previousTail = this.tail;
-      // previousTail.next = newNode;
       this.tail = newNode;
     }
 
@@ -46,14 +44,11 @@ export class LinkedList<T> {
 
   prepend(value: T) {
     const newNode = new Node(value);
+    newNode.next = this.head;
+    this.head = newNode;
 
-    if (!this.head || !this.tail) {
-      this.head = newNode;
+    if (!this.tail) {
       this.tail = newNode;
-    } else {
-      const previousHead = this.head;
-      this.head = newNode;
-      this.head.next = previousHead;
     }
 
     this.count += 1;
